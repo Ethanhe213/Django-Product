@@ -16,6 +16,11 @@ class Position(models.Model):
         return super().save(*args,**kwargs)
     def __str__(self):
         return f"id:{self.id}, product:{self.product.name},quantity:{self.quantity}"
+    def get_sales_id(self):
+
+        sale_obj=self.sale_set.first()
+        return sale_obj.id
+      
 class Sale(models.Model):
     transaction_id=models.CharField(max_length=12,blank=True)
     positions=models.ManyToManyField(Position)
