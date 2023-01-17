@@ -1,7 +1,7 @@
 from django.db import models
 from profiles.models import Profile
 # Create your models here.
-class Report(models.model):
+class Report(models.Model):
     name=models.CharField(max_length=200)
     image=models.ImageField(upload_to='reports',blank=True)
     remarks=models.TextField()

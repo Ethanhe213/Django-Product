@@ -10,7 +10,26 @@ home
 {% endblock title%}
 
 {% block content%}
-
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Report</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="'alert-box"></div>
+         <form id="'report-form">
+            {%csrf_token%}
+            {{report_form|crispy}}
+            <button type="submit" class="btn btn-info">Save</button>
+         </form>
+        </div>
+       
+      </div>
+    </div>
+  </div>
 <hr>
 <form action="" method="POST">
     {%csrf_token%}
@@ -33,5 +52,5 @@ home
     <h3>no data</h3>
 {% endif %}
 
-<button class="btn btn-primary mt-3" id="'report-btn">add report</button>
+<button type='submit' class="btn btn-primary invisible" id="report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">add report</button>
 {% endblock content%}

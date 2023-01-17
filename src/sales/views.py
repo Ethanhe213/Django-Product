@@ -2,15 +2,18 @@ from django.shortcuts import render
 from django.views.generic import ListView,DetailView
 from .models import Sale
 from .forms import SalesSearchForm
+from reports.forms import ReportForm
 import pandas as pd
 from .utils import get_customer_from_id,get_salesman_from_id,get_chart,get_graph
+
 def home_view(request):
     sale_df=None
     position_df=None
     merged_df=None
     df=None
     chart=None
-    form=SalesSearchForm(request.POST or None)
+    Searchform=SalesSearchForm(request.POST or None)
+    report_form=ReportForm()
     if request.method=='POST':
         date_from=request.POST.get('date_from')
         date_to=request.POST.get('date_to')
@@ -28,7 +31,6 @@ def home_view(request):
             positions_data=[]
             for sale in sale_qs:
                 for pos in sale.get_positions():
-                   
                     obj={
                     'position_id':pos.id,
                     'product':pos.product.name,
@@ -48,12 +50,13 @@ def home_view(request):
         else:
             print('no data')
     context={
-        'form':form,
+        'form':Searchform,
         'sale_df':sale_df,
         'position':position_df,
         'merged_df':merged_df,
         'df':df,
-        'chart':chart
+        'chart':chart,
+        'report_form':report_form,
 
     }
     return render(request,'sales/home.html',context)
